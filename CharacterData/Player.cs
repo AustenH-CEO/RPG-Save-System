@@ -4,7 +4,10 @@ using System.Text;
 
 namespace RPG_Save_System.CharacterData
 {
-    internal class Player
+    public class Player
     {
+        public string Name {  get; set; }
+        public int Level { get; set; }
+
     }
 }

@@ -34,8 +34,10 @@ namespace RPG_Save_System.CharacterData
             }
         }
         public int Level { get; set; }
+        public bool IsAlive { get; set; } = true;
         private List<Item> items = new List<Item>();
-        public Player (string name, int health, int level)
+        public List<Item> Items { get; }
+        public Player(string name, int health, int level)
         {
             Name = name;
             Health = health;
@@ -49,15 +51,18 @@ namespace RPG_Save_System.CharacterData
         }
         public void DisplayInventory()
         {
-            foreach (var item in items)
+            Console.WriteLine("");
+            Console.WriteLine("--------Inventory--------");
+            if (items.Count == 0)
             {
-                if (item == null)
-                    Console.WriteLine("No Items");
-                else
+                Console.WriteLine("No Items.");
+                return;
+            }
+            else
+            {
+                foreach (var item in items)
                 {
-                    Console.WriteLine("Item: " + item.Name);
-                    Console.WriteLine("Description: " + item.Description);
-                    Console.WriteLine("Count: " + item.Quantity);
+                        item.PrintItem();
                 }
             }
         }
@@ -70,16 +75,22 @@ namespace RPG_Save_System.CharacterData
             Health -= amount;
             if (health <= 0)
             {
-                Console.WriteLine(this.Name + " took " + amount + " damage.");
-                Console.WriteLine(this.Name + " died.");
+                Console.WriteLine(Name + " took " + amount + " damage.");
+                Console.WriteLine(Name + " died.");
+                IsAlive = false;
             }
             else
-                Console.WriteLine(this.Name + " took " + amount + " damage.");
+                Console.WriteLine(Name + " took " + amount + " damage.");
         }
         public void LevelUp()
         {
-            Level += 1;
-            Console.WriteLine(this.Name + " leveled up! " + "(" + this.Level + ")");
+            if (IsAlive)
+            {
+                Level += 1;
+                Console.WriteLine(Name + " leveled up! " + "(" + Level + ")");
+            }
+            else
+                Console.WriteLine("Can't Level Up.");
         }
         public string ToJson()
         {

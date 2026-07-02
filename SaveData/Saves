@@ -1,5 +1,7 @@
 {
-  "Name": "lok",
+  "Name": "Turnip",
   "Health": 0,
-  "Level": 5
+  "Level": 4,
+  "IsAlive": false,
+  "Items": null
 }

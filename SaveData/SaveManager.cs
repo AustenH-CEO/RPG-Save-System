@@ -10,10 +10,11 @@ namespace RPG_Save_System.SaveData
     {
         public static void Save(ISaveable entity)
         {
-            string folder = @"C:\Users\austen.hernandez\source\repos\RPG-Save-System\SaveData";
+            string folder = @"C:\Users\austen.hernandez\source\repos\AustenH-CEO\RPG-Save-System\SaveData\";
             string file = "Saves";
             string fullPath = Path.Combine(folder, file);
             File.WriteAllText(fullPath, entity.ToJson());
+            Console.WriteLine("Player Saved.");
         }
         public static T Load<T>(string path)
         {
@@ -21,9 +22,11 @@ namespace RPG_Save_System.SaveData
             {
                 string jsonText = File.ReadAllText(path);
                 ISaveable loadSave = (ISaveable)JsonSerializer.Deserialize<T>(jsonText);
+                Console.WriteLine("Player Loaded.");
                 return (T)loadSave;
             }
-            return default(T);
+            else
+                return default(T);
         }
 
     }

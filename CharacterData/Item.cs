@@ -1,10 +1,12 @@
-﻿using System;
+﻿using RPG_Save_System.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace RPG_Save_System.CharacterData
 {
-    public class Item
+    public class Item: ISaveable
     {
         private string name;
         public string Name
@@ -14,6 +16,8 @@ namespace RPG_Save_System.CharacterData
             {
                 if (value == null)
                     name = "Pocket Lint";
+                else
+                    name = value;
             }
         }
         private string description;
@@ -24,6 +28,8 @@ namespace RPG_Save_System.CharacterData
             {
                 if (value == null)
                     description = "Pocket lint... nothing of value.";
+                else
+                    description = value;
             }
         }
         private int quantity;
@@ -34,6 +40,8 @@ namespace RPG_Save_System.CharacterData
             {
                 if (value < 0)
                     quantity = 0;
+                else
+                    quantity = value;
             }
         }
         public int DamageValue { get; set; }
@@ -46,7 +54,7 @@ namespace RPG_Save_System.CharacterData
             DamageValue = 0;
             HPRestoreValue = 0;
         }
-        public Item (string name, string description, int Quantity ,int damageValue, int hpRestoreValue)
+        public Item (string name, string description, int quantity ,int damageValue, int hpRestoreValue)
         {
             Name = name;
             Description= description;
@@ -54,23 +62,27 @@ namespace RPG_Save_System.CharacterData
             DamageValue = damageValue;
             HPRestoreValue = hpRestoreValue;
         }
-        public void PrintItemStat()
+        public void PrintItem()
         {
-            Console.WriteLine("Name: " + Name);
-            Console.WriteLine("Description: " + Description);
-            if (Quantity != null && Quantity > 0)
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Description: {Description}");
+            if (Quantity > 0)
             {
-                Console.WriteLine("Amount: " + Quantity);
+                Console.WriteLine($"Amount: {Quantity}");
             }
-
-            if (DamageValue != null && DamageValue > 0)
+            if (DamageValue > 0)
             {
-                Console.WriteLine("Damage Value: " + DamageValue);
+                Console.WriteLine($"Damage Value: {DamageValue}");
             }
-            if (HPRestoreValue != null && HPRestoreValue > 0)
+            if (HPRestoreValue > 0)
             {
-                Console.WriteLine("HP Restore Value: " + HPRestoreValue);
+                Console.WriteLine($"HP Restore Value: {HPRestoreValue}");
             }
+        }
+        public string ToJson()
+        { 
+            string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+            return json;
         }
     }
 }

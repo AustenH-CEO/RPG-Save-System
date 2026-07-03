@@ -4,23 +4,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Channels;
 
 namespace RPG_Save_System.CharacterData
 {
     public class Player: IGameCharacter, ISaveable
     {
         private string name;
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                if (value == null)
-                    name = "John Doe";
-                else
-                    name = value;
-            }
-        }
+        public string Name { get; set; }
         private int health;
         public int Health
         {
@@ -36,7 +28,7 @@ namespace RPG_Save_System.CharacterData
         public int Level { get; set; }
         public bool IsAlive { get; set; } = true;
         private List<Item> items = new List<Item>();
-        public List<Item> Items { get; }
+        public List<Item> Items { get => items; set => items = value; }
         public Player(string name, int health, int level)
         {
             Name = name;
@@ -53,14 +45,14 @@ namespace RPG_Save_System.CharacterData
         {
             Console.WriteLine("");
             Console.WriteLine("--------Inventory--------");
-            if (items.Count == 0)
+            if (Items.Count == 0)
             {
                 Console.WriteLine("No Items.");
                 return;
             }
             else
             {
-                foreach (var item in items)
+                foreach (var item in Items)
                 {
                         item.PrintItem();
                 }
@@ -68,7 +60,7 @@ namespace RPG_Save_System.CharacterData
         }
         public void AddItem(Item item)
         {
-            items.Add(item);
+            Items.Add(item);
         }
         public void TakeDamage(int amount)
         {

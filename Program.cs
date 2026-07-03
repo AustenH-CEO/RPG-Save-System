@@ -36,7 +36,7 @@ public class Program
 
                         break;
                     case 2:
-                        string path = @"C:\Users\austen.hernandez\source\repos\AustenH-CEO\RPG-Save-System\SaveData\Saves";
+                        string path = @"C:\Users\austen.hernandez\source\repos\AustenH-CEO\RPG-Save-System\SaveData\Saves.json";
                         Player loadedPlayer = SaveManager.Load<Player>(path);
                         loadedPlayer.DisplayPlayer();
                         loadedPlayer.DisplayInventory();

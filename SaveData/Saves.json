@@ -1,0 +1,22 @@
+{
+  "Name": "New CHar",
+  "Health": 0,
+  "Level": 4,
+  "IsAlive": false,
+  "Items": [
+    {
+      "Name": "Health Potion",
+      "Description": "Heals character.",
+      "Quantity": 3,
+      "DamageValue": 0,
+      "HPRestoreValue": 50
+    },
+    {
+      "Name": "LongSword",
+      "Description": "Stab and slash.",
+      "Quantity": 1,
+      "DamageValue": 100,
+      "HPRestoreValue": 0
+    }
+  ]
+}

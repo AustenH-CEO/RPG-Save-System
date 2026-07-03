@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RPG_Save_System.CharacterData
 {
@@ -54,6 +55,7 @@ namespace RPG_Save_System.CharacterData
             DamageValue = 0;
             HPRestoreValue = 0;
         }
+        [JsonConstructor]
         public Item (string name, string description, int quantity ,int damageValue, int hpRestoreValue)
         {
             Name = name;
